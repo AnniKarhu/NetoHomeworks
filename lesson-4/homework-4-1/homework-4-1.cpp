@@ -90,8 +90,8 @@ private:
         if (real_addresses_num > 0)        
             fout << real_addresses_num << "\n";
 
-        for (int i = 0; i < real_addresses_num; ++i)
-         {
+        for (int i = real_addresses_num - 1; i >= 0; --i)
+        {
             fout << addresses_array[i].city   << ", ";
             fout << addresses_array[i].street << ", ";
             fout << addresses_array[i].building << ", ";
