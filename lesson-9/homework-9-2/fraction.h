@@ -27,7 +27,8 @@ public:
 	Fraction operator-(Fraction num_f2); //вычитание;
 	Fraction operator*(Fraction num_f2); //умножение;
 	Fraction operator/(Fraction num_f2); //деление;
-	Fraction& operator-(); //унарный минус;
+	//Fraction& operator-(); //унарный минус;
+	Fraction operator-(); //унарный минус;
 	Fraction& operator++(); //инкремент префиксный;
 	Fraction operator++(int); //инкремент постфиксный;
 	Fraction& operator--();//декремент префиксный

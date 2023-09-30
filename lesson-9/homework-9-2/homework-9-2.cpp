@@ -22,11 +22,14 @@ int main()
 
     try
     {
-        Fraction f1(numerator_1, denominator_1);
+        num_1 = new Fraction(numerator_1, denominator_1);
+        num_2 = new Fraction(numerator_2, denominator_2);
+
+        /*Fraction f1(numerator_1, denominator_1);
         num_1 = &f1;
 
         Fraction f2(numerator_2, denominator_2);
-        num_2 = &f2;
+        num_2 = &f2;*/
     }
     catch (FractionException& ex)
     {
@@ -57,6 +60,11 @@ int main()
     std::cout << num_1->print_fraction() << "--" << " * " << num_2->print_fraction() << " = ";
     std::cout << ((*num_1)-- * (*num_2)).print_fraction() << "\n";
     std::cout << "Значение дроби 1 = " << num_1->print_fraction() << "\n";
+
+    delete num_1;
+    delete num_2;
+
+    return 0;
 }
 
 void get_int_number(std::string invite_str, int& int_num) //получить от пользователя число интеджер

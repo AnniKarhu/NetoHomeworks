@@ -14,12 +14,8 @@ int main()
 
 	try
 	{
-		//Fraction f1(8, 3);
-		Fraction f1(4, 3);
-		num_f1 = &f1;
-		//Fraction f2(13, 11);
-		Fraction f2(6, 11);
-		num_f2 = &f2;
+		num_f1 = new Fraction(4, 3);
+		num_f2 = new Fraction(6, 11);		
 
 	}
 	catch (FractionException& ex)
@@ -45,6 +41,8 @@ int main()
 	std::cout << "f1" << ((*num_f1 <= *num_f2) ? " <= " : " not <= ") << "f2" << '\n';
 	std::cout << "f1" << ((*num_f1 >= *num_f2) ? " >= " : " not >= ") << "f2" << '\n';
 
+	delete num_f1;
+	delete num_f2;
 		
 	return 0;
 }

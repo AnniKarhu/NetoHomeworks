@@ -119,11 +119,15 @@
 	}
 
 
-	Fraction& Fraction::operator-() //унарный минус;
+	Fraction Fraction::operator-() //унарный минус;
 	{
-		this->numerator_ *= (-1);		
+		int temp_num = this->numerator_ * (-1);
+		
+		Fraction new_fraction(temp_num, this->denominator_);
+		new_fraction.simplify_fraction();
 
-		 return *this;
+		return new_fraction;
+		
 	}
 
 	Fraction& Fraction::operator++() //инкремент префиксный;
