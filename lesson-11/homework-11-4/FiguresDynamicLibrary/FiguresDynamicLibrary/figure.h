@@ -1,10 +1,24 @@
 #pragma once
 #include <iostream>
 
-#ifdef FIGURE_DYN_LIB_EXPORTS
-#define FIGURE_DYN_LIB_API __declspec(dllexport)
+/*
+https://learn.microsoft.com/ru-ru/cpp/build/walkthrough-creating-and-using-a-dynamic-link-library-cpp?view=msvc-170
+в проекте библиотеки
+DLL Visual Studio автоматически определ€ет макрос <»ћяѕ–ќ≈ “ј>_EXPORTS) и
+когда он используетс€ при сборке модул€-клиента (тогда макрос не определЄн и
+символы не экспортируютс€, а импортируютс€
+
+#ifndef FIGURE_DYN_LIB_EXPORTS
+или по имени проекта (заглавными буквами) - 
+#ifdef FIGURESDYNAMICLIBRARY_EXPORTS
+
+*/
+
+
+#ifdef FIGURESDYNAMICLIBRARY_EXPORTS
+    #define FIGURE_DYN_LIB_API __declspec(dllexport)
 #else
-#define FIGURE_DYN_LIB_API __declspec(dllimport)
+    #define FIGURE_DYN_LIB_API __declspec(dllimport)
 #endif
 
 

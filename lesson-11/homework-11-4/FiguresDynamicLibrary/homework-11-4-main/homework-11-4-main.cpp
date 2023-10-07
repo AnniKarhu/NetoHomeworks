@@ -33,6 +33,7 @@ int main()
     print_info(&parallelogram_1);
     print_info(&diamond_1);
 
+    
 }
 
 void print_info(Figure* p_figure) //вывести информацию о фигуре
