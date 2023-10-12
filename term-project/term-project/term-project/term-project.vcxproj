@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{5676cd71-f981-445f-b1ff-bd1a015b1eb6}</ProjectGuid>
-    <RootNamespace>homework114main</RootNamespace>
+    <ProjectGuid>{1ea12d0b-0bbb-46c5-a54e-c42b9d522e41}</ProjectGuid>
+    <RootNamespace>termproject</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -76,7 +76,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\FiguresDynamicLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -91,7 +90,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\FiguresDynamicLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -106,7 +104,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\FiguresDynamicLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,7 +118,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\FiguresDynamicLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,12 +127,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="homework-11-4-main.cpp" />
+    <ClCompile Include="source.cpp" />
+    <ClCompile Include="racing.cpp" />
+    <ClCompile Include="transport.cpp" />
+    <ClCompile Include="transport_air.cpp" />
+    <ClCompile Include="transport_broom.cpp" />
+    <ClCompile Include="transport_camel.cpp" />
+    <ClCompile Include="Transport_centaur.cpp" />
+    <ClCompile Include="transport_crosscountry_boots.cpp" />
+    <ClCompile Include="transport_eagle.cpp" />
+    <ClCompile Include="transport_exceptions.cpp" />
+    <ClCompile Include="transport_high_speed_camel.cpp" />
+    <ClCompile Include="transport_land.cpp" />
+    <ClCompile Include="transport_magic_carpet.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FiguresDynamicLibrary\FiguresDynamicLibrary.vcxproj">
-      <Project>{337feec0-97a1-47c6-b7cd-efe8d137599a}</Project>
-    </ProjectReference>
+    <ClInclude Include="racing.h" />
+    <ClInclude Include="transport.h" />
+    <ClInclude Include="transport_air.h" />
+    <ClInclude Include="transport_broom.h" />
+    <ClInclude Include="transport_camel.h" />
+    <ClInclude Include="transport_centaur.h" />
+    <ClInclude Include="transport_crosscountry_boots.h" />
+    <ClInclude Include="transport_eagle.h" />
+    <ClInclude Include="transport_exceptions.h" />
+    <ClInclude Include="transport_high_speed_camel.h" />
+    <ClInclude Include="transport_land.h" />
+    <ClInclude Include="transport_magic_carpet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
