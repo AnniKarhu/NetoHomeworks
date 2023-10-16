@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="racing_exception.cpp" />
     <ClCompile Include="source.cpp" />
     <ClCompile Include="racing.cpp" />
     <ClCompile Include="transport.cpp" />
@@ -143,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="racing.h" />
+    <ClInclude Include="racing_exceptions.h" />
     <ClInclude Include="transport.h" />
     <ClInclude Include="transport_air.h" />
     <ClInclude Include="transport_broom.h" />

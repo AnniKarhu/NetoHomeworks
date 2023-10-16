@@ -15,16 +15,17 @@ private:
     transport_type tr_type; //тип транспортного средства
     int tr_speed;           //скорость    
     std::string tr_name = "Транспортное средство";
+    
 protected:
     Transport(int new_speed, transport_type new_type);
-   
+    bool active_for_racing = false; //принимает ли участие в гонке
     void set_transport_name(std::string new_name);
 public:
    
     int get_tr_speed();
     std::string get_tr_name();  
     transport_type get_tr_type();
-
+    bool get_active_for_racing(); //принимает ли участие в гонке
    virtual double get_total_distance_time(double distance);
 
 

@@ -42,3 +42,8 @@ double Transport::get_total_distance_time(double distance)
 
 	return (distance / get_tr_speed());
 }
+
+bool Transport::get_active_for_racing() //принимает ли участие в гонке
+{
+	return active_for_racing;
+}
