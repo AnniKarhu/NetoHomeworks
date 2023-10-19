@@ -17,5 +17,5 @@ public:
 	int get_move_time();
 	virtual int get_rest_time();
 
-	double get_total_distance_time(double distance) override;
+	double calculate_total_distance_time(double distance) override;
 };

@@ -13,7 +13,7 @@ int Transport_air::get_reduction_factor(double distance)
 	return reduction_factor; //коэффициент сокращения расстояния
 }
 
-double Transport_air::get_total_distance_time(double distance)
+double Transport_air::calculate_total_distance_time(double distance)
 {
 	int red_ration = get_reduction_factor(distance); //получить новое значение коэффициент сокращения расстояния
 

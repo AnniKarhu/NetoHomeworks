@@ -13,23 +13,20 @@
 Racing::Racing(race_type new_race_type, int new_distance)
 {
 	my_race_type = new_race_type;
-	race_distance = new_distance;
-		
+	race_distance = new_distance;		
 }
 
 Racing::Racing()
-{
-	
-	
+{	
 	try
 	{
-		transports_array[0] = new Transport_camel();
-		transports_array[1] = new Transport_high_speed_camel();
-		transports_array[2] = new Transport_centaur();
-		transports_array[3] = new Transport_crosscountry_boots();
-		transports_array[4] = new Transport_broom();
-		transports_array[5] = new Transport_eagle();
-		transports_array[6] = new Transport_magic_carpet();
+		transports_array[0] = new Transport_crosscountry_boots();
+		transports_array[1] = new Transport_broom();
+		transports_array[2] = new Transport_camel();
+		transports_array[3] = new Transport_centaur();
+		transports_array[4] = new Transport_eagle();
+		transports_array[5] = new Transport_high_speed_camel();
+		transports_array[6] = new Transport_magic_carpet();		
 	}
 	catch (const TransportException& ex)
 	{
@@ -38,8 +35,7 @@ Racing::Racing()
 	catch (...)
 	{
 		throw RacingException("Ошибка создания гонки -  причина неизвестна");
-	}
-	
+	}	
 
 	//проверить, что все транспорты успешно созданы (а вдруг память не была выделена)
 	for (int i = 0; i < transports_array_size; ++i)
@@ -47,8 +43,7 @@ Racing::Racing()
 		if (transports_array[i] == nullptr)
 		{
 			throw RacingException("Ошибка создания гонки -  один или более транспортов не созданы");
-		}
-		
+		}		
 	}
 }
 
@@ -63,7 +58,6 @@ Racing::~Racing()
 			transports_array[i] = nullptr;
 		}
 	}
-
 }
 
 void Racing::set_race_type(race_type new_race_type) //указать тип гонки
@@ -95,7 +89,6 @@ std::string Racing::race_type_invitation_string() //приглашение выбрать тип гонк
 	tepm_str += "Выберите тип гонки: ";
 
 	return tepm_str;
-
 }
 
 std::string Racing::race_distance_invitation_string() //приглашение выбрать дистанцию гонки
@@ -115,10 +108,17 @@ std::string Racing::race_type_name(race_type race_type_x)
 
 bool Racing::get_racing_registered_transports() //проверка, зарегистрировано ли минимальное число участников 
 {
-	//int transports_array_index = -1; //указатель на текущий  индекс массива transports_array
-	//int minimum_transports_number = 2; //минимальное количество транспортов для гонки
+	int active_transports_counter = 0; //счетчик зарегистрированных транспортов
+	for (int i = 0; i < transports_array_size; ++i)
+	{
+		if (transports_array[i]->get_active_for_racing())
+		{
+			++active_transports_counter;
+		}
+	}
+	
 
-	if ((transports_array_index + 1) < minimum_transports_number)
+	if (active_transports_counter < minimum_transports_number)
 	{
 		return false; //гонку нельзя начинать - число участников меньше минимально допустимого количества
 	}
@@ -138,15 +138,25 @@ int Racing::get_available_transports_number() //сколько всего возможно участнико
 
 std::string Racing::transport_name(int arr_index) //имя транспорта по индексу в массиве transports_array
 {
-	std::string temp_str = "Неизвестный транспорт - регистрировать на гонку нельзя";
-	if (arr_index < transports_array_size)
+	std::string temp_str = "Неизвестный транспорт";
+	if ((arr_index < transports_array_size) && (arr_index >= 0))
 		if (transports_array[arr_index] != nullptr)
 		{
 			temp_str = transports_array[arr_index]->get_tr_name();
 		}
 
 	return temp_str;
+}
 
+double Racing::transport_result(int arr_index) //результат (время прохождения дистанции) транспорта по индексу в массиве transports_array
+{
+	if ((arr_index < transports_array_size) && (arr_index >= 0))
+		if (transports_array[arr_index] != nullptr)
+		{
+			return transports_array[arr_index]->get_distance_time();
+		}
+
+	return -1;
 }
 
 std::string Racing::get_registered_transports_list() //список имен транспортов, зарегестрированных на гонку
@@ -167,4 +177,52 @@ std::string Racing::get_registered_transports_list() //список имен транспортов, 
 
 	return temp_str;
 
+}
+
+registration_status Racing::register_transport(int index) //зарегестрировать транспорт на гонку
+{
+	if ((index > transports_array_size - 1) || (index <  0))
+	{
+		return registration_status::reg_status_type_error;
+	}
+	
+	if (transports_array[index]->get_active_for_racing()) //уже зарегестрирован
+	{
+		return registration_status::reg_status_second_attempt; //попытка зарегестрировать транспорт второй раз
+	}
+
+	switch (my_race_type)
+	{
+		case race_type::race_type_land: //гонка только для наземных
+			{
+				if (transports_array[index]->get_tr_type() == transport_type::tr_type_land)
+				{
+					transports_array[index]->set_active_for_racing(true, race_distance);
+					return registration_status::reg_status_ok;
+				}
+				break;
+			}
+		case race_type::race_type_air://гонка только для воздушных
+			{
+				if (transports_array[index]->get_tr_type() == transport_type::tr_type_air)
+				{
+					transports_array[index]->set_active_for_racing(true, race_distance);
+					return registration_status::reg_status_ok;
+				}
+				break;
+			}
+		case race_type::race_type_all:   //гонка для всех
+			{
+				transports_array[index]->set_active_for_racing(true, race_distance);
+				return registration_status::reg_status_ok;
+				break;
+			}
+	}
+
+	return registration_status::reg_status_type_error;
+}
+
+void sort_transport_array() //отсортировать массив по возрастанию времени прохождения гонки
+{
+	std::cout << "здесь попозже допишу сортировку\n";
 }

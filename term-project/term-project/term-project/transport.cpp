@@ -34,7 +34,7 @@ void Transport::set_transport_name(std::string new_name)
 	tr_name = new_name;
 }
 
-double Transport::get_total_distance_time(double distance)
+double Transport::calculate_total_distance_time(double distance)
 {
 	//1. класс исключения для деления на 0 - скорость не может быть равно 0 - проверяется на этапе создания объекта
 	//2. в этом классе возвращать дист/скорость
@@ -46,4 +46,20 @@ double Transport::get_total_distance_time(double distance)
 bool Transport::get_active_for_racing() //принимает ли участие в гонке
 {
 	return active_for_racing;
+}
+
+void Transport::set_active_for_racing(bool new_active, double distance) //принимает ли участие в гонке - установить
+{
+	active_for_racing = new_active;
+	
+	if (new_active) //транспорт участвует в гонке
+	{
+		//вычислить и сохранить время прохождения дистанции		
+		result_time = calculate_total_distance_time(distance);
+	}	
+}
+
+double Transport::get_distance_time() //узнать результат гонки
+{
+	return result_time;
 }

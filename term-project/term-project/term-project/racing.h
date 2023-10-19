@@ -11,6 +11,13 @@ enum class race_type //возможные типы гонок
 						race_type_all   //гонка для всех
 					 };
 
+enum class registration_status  //возможные результаты регистрации
+								{
+									reg_status_ok,				//успешно зарегестрирован
+									reg_status_second_attempt, //попытка зарегестрировать транспорт второй раз
+									reg_status_type_error		//транспорт не подходит для этого типа гонок
+								};
+
 
 class Racing
 {
@@ -19,9 +26,11 @@ private:
 	race_type my_race_type; //тип гонки
 	int transports_array_size = 7; //размер массива указателей на транспорты 
 	Transport* transports_array[7] = {}; //массив указателей на транспорты
-	int transports_array_index = -1; //указатель на текущий  индекс массива transports_array
+	double* result_time_array[7];
+	//int transports_array_index = -1; //указатель на текущий  индекс массива transports_array
 	int minimum_transports_number = 2; //минимальное количество транспортов для гонки
-	
+	void sort_transport_array(); //отсортировать массив по возрастанию времени прохождения гонки
+
 public: 
 	Racing(race_type new_race_type, int new_distance);
 	Racing();
@@ -38,7 +47,9 @@ public:
 	int get_minimum_transports_number(); //минимальное количество транспортов для гонки
 	int get_available_transports_number(); //сколько всего возможно участников - размер массива transports_array = transports_array_size
 	std::string transport_name(int arr_index); //имя транспорта по индексу в массиве transports_array
+	double transport_result(int arr_index); //результат (время прохождения дистанции) транспорта по индексу в массиве transports_array
 	std::string get_registered_transports_list(); //список имен транспортов, зарегестрированных на гонку
+	registration_status register_transport(int index); //зарегестрировать транспорт на гонку
 };
 
 

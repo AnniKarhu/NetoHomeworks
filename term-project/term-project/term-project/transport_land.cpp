@@ -39,7 +39,7 @@ int Transport_land::get_rest_time()
 	return result;
 }
 
-double Transport_land::get_total_distance_time(double distance)
+double Transport_land::calculate_total_distance_time(double distance)
 {
 	double temp_time; //время движения без отдыха
 	temp_time = distance / get_tr_speed();
