@@ -33,35 +33,35 @@ int main()
 	//SetConsoleOutputCP(1251);
 
 	std::cout << "Добро пожаловать в гоночный симулятор!\n";
-
-	Racing* new_racing;
-	new_racing = new Racing();
-
 	while (1)
 	{
+		Racing* new_racing;
+		new_racing = new Racing();
+	
 		race_type new_race_type = get_race_type(new_racing); //выбор пользователем типа гонки
 		new_racing->set_race_type(new_race_type);
 		int new_distance = get_distance(new_racing); //выбор пользователем дистанции
 		new_racing->set_race_distance(new_distance);
 
 		//выбор действия пользователем
-		{  //действия перед гонкой
-
-			actions_before_racing new_action = actions_before_racing::action_br_incorrect;  // номер выбранного действия
-			while (new_action != actions_before_racing::action_start_racing)
-			{
-				new_action = get_racing_start_action(new_racing); //выбор пользователем действий перед гонкой	
-				execute_action_before_racing(new_action, new_racing); //выполнить действие, выбранное пользователем перед гонкой
-			}
-			delete new_racing;
+		//действия перед гонкой
+		actions_before_racing new_action_br = actions_before_racing::action_br_incorrect;  // номер выбранного действия
+		while (new_action_br != actions_before_racing::action_start_racing)
+		{
+				new_action_br = get_racing_start_action(new_racing); //выбор пользователем действий перед гонкой	
+				execute_action_before_racing(new_action_br, new_racing); //выполнить действие, выбранное пользователем перед гонкой				
 		}
-		{  //действия после гонки
-			actions_after_racing new_action = actions_after_racing::action_ar_incorrect;  // номер выбранного действия
-			if (new_action == action_exit)
-			{
+		
+		delete new_racing;
+		
+		//действия после гонки
+		actions_after_racing new_action_ar = actions_after_racing::action_ar_incorrect;  // номер выбранного действия
+		new_action_ar = get_racing_end_action(); //выбор пользователем действий после гонкой
+		if (new_action_ar == action_exit)
+		{
 				return 0; //выход из программы
-			}
 		}
+		
 
 	}
 	
@@ -225,7 +225,7 @@ void register_transport(Racing* new_racing) //зарегестрировать транспорт на гонк
 	//вывести список доступных для регистрации транспортов
 	for (int i = 0; i < new_racing->get_available_transports_number(); ++i)
 	{
-		std::cout << i+1 << ". " << new_racing->transport_name(i) << "\n"; //имя транспорта по индексу в массиве transports_array
+		std::cout << i+1 << ". " << new_racing->transport_name(i) << int(new_racing->transport_result(i)) << "\n"; //имя транспорта по индексу в массиве transports_array
 	}
 
 	std::cout << "0. Закончить регистрацию\n";
@@ -279,6 +279,13 @@ void register_transport(Racing* new_racing) //зарегестрировать транспорт на гонк
 
 void print_results(Racing* new_racing) //отобразить результаты гонок
 {
+	std::cout << "****************************\n";
+	for (int i = 0; i < new_racing->get_available_transports_number(); ++i) //перебрать массив транспортов гонки 
+	{
+		std::cout << i << ". " << new_racing->transport_name(i) << ". Время: " << new_racing->transport_result(i) << "\n";
+	}
+	std::cout << "****************************\n\n\n";
+	
 	int counter = 1; //номер места
 	for (int i = 0; i < new_racing->get_available_transports_number(); ++i) //перебрать массив транспортов гонки
 	{

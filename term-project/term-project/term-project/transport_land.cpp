@@ -28,12 +28,12 @@ int Transport_land::get_rest_time()
 		return 0;
 	}
 
-	static int array_index = 0; //индекс номера остановки
-	double result = rests_array[array_index];
+	//static int array_index = 0; //индекс номера остановки
+	double result = rests_array[rests_array_index];
 
-	if (array_index < (rests_array_size - 1)) //если это не последний элемент массива
+	if (rests_array_index < (rests_array_size - 1)) //если это не последний элемент массива
 	{
-		++array_index; //в следующий раз выдать сделующий элемент
+		++rests_array_index; //в следующий раз выдать сделующий элемент
 	}
 
 	return result;
@@ -47,19 +47,18 @@ double Transport_land::calculate_total_distance_time(double distance)
 	int temp_rests; //сколько раз нужно отдыхать
 	temp_rests = (temp_time / get_move_time()) - 1; //-1 - так как если время дист  совпадает с временем до отдыха, то отдых будет уже за линией финиша
 
-	if ((temp_time / get_move_time()) > 0) //если чуток не хватило до финиша
+	if (temp_time / get_move_time() - (static_cast<int>(temp_time) / get_move_time()) > 0) //если чуток не хватило до финиша
 	{
 		temp_rests += 1; //придется еще раз отдохнуть
 	}
-
 	
-	for (int i = 0; i < rests_array_size - 1; ++i) //остановки с отличающимся временем отдыха прописаны в массиве rests_array, размер которого rests_array_size
+	for (int i = 0; i <= rests_array_size - 1; ++i) //остановки с отличающимся временем отдыха прописаны в массиве rests_array, размер которого rests_array_size
 	{
 		temp_time += get_rest_time();
 	}
 
 	temp_rests -= rests_array_size; //сколько остановок с одинаковым временем отдыха
-	temp_time += temp_time * get_rest_time();
+	temp_time += temp_rests * get_rest_time();
 
 	return temp_time;
 

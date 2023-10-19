@@ -6,7 +6,7 @@ class Transport_land : public Transport
 {
 private:
 	int move_time; //время движения до отдыха
-	
+	int rests_array_index = 0; //индекс номера остановки
 	
 protected:
 	int rests_array_size = 0; //размер массива rests_array
