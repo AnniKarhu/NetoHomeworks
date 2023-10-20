@@ -26,7 +26,8 @@ Racing::Racing()
 		transports_array[3] = new Transport_centaur();
 		transports_array[4] = new Transport_eagle();
 		transports_array[5] = new Transport_high_speed_camel();
-		transports_array[6] = new Transport_magic_carpet();		
+		transports_array[6] = new Transport_magic_carpet();	
+		transports_array[7] = new Transport();
 	}
 	catch (const TransportException& ex)
 	{
@@ -46,6 +47,8 @@ Racing::Racing()
 		}		
 	}
 }
+
+
 
 Racing::~Racing()
 {
@@ -222,7 +225,83 @@ registration_status Racing::register_transport(int index) //зарегестрировать тра
 	return registration_status::reg_status_type_error;
 }
 
-void sort_transport_array() //отсортировать массив по возрастанию времени прохождения гонки
+
+int Racing::pivoting(Transport** arr, int size, int pi) //пивотирование
 {
-	std::cout << "здесь попозже допишу сортировку\n";
+	int left = 0;
+	int right = size - 1;
+	int pivot = arr[pi]->get_distance_time();
+
+	while (1)
+	{
+		while (arr[left]->get_distance_time() <  pivot)
+		{
+			if (arr[left]->get_distance_time() <  -1)
+			{ 
+				break;
+			}
+			++left;
+		}
+
+		while (arr[right]->get_distance_time() >  pivot)
+		{
+			--right;
+		}
+
+		if (left >= right)
+		{
+			return left;
+		}
+
+		swap(left, right);
+		++left;
+		--right;
+	}
+}
+	
+
+void Racing::sort_transport_array(Transport** arr, int size) //отсортировать массив по возрастанию времени прохождения гонки
+{
+	if (size == 1)
+	{
+		return;
+	}
+	int pi = size / 2;
+	int border = pivoting(arr, size, pi);
+	sort_transport_array(arr, border);
+
+	int arr_size = size - border;
+	sort_transport_array(&arr[border], arr_size);
+}
+
+void Racing::sort_transport_places() //распределить места
+{
+	sort_transport_array2(transports_array, transports_array_size);
+}
+
+
+
+void Racing::swap(int i, int j) //поменять местами
+{
+	Transport* temp = transports_array[i];
+	transports_array[i] = transports_array[j];
+	transports_array[j] = temp;
+}
+
+void Racing::sort_transport_array2(Transport** arr, int size) //отсортировать массив по возрастанию времени прохождения гонки
+{
+	bool  changed = true;
+	while (changed)
+	{
+		changed = false;
+		for (int i = 1; i < size; ++i)
+		{
+			if (arr[i]->get_distance_time() < arr[i-1]->get_distance_time())
+			{
+				swap(i, i - 1); //поменять местами
+				changed = true;
+			}
+		}
+	}
+	
 }

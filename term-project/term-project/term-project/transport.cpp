@@ -2,8 +2,13 @@
 #include <iostream>
 #include "transport_exceptions.h"
 
+Transport::Transport()
+{
+	//tr_type = new_type;
+	tr_speed = 1;
+	result_time = -2;
+}
 Transport::Transport(int new_speed, transport_type new_type)
-
 {
 	//скорость не может быть равной или меньше 0
 	if (new_speed <= 0)

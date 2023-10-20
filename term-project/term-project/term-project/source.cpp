@@ -191,6 +191,9 @@ void execute_action_before_racing(actions_before_racing new_action, Racing* new_
 	} else
 	if (new_action == action_start_racing)
 	{
+		//перед выводом результатов нужно сортировать массив по времени
+		new_racing->sort_transport_places();
+		//new_racing->swap2();
 		print_results(new_racing);
 	}
 }
@@ -279,13 +282,6 @@ void register_transport(Racing* new_racing) //зарегестрировать транспорт на гонк
 
 void print_results(Racing* new_racing) //отобразить результаты гонок
 {
-	std::cout << "****************************\n";
-	for (int i = 0; i < new_racing->get_available_transports_number(); ++i) //перебрать массив транспортов гонки 
-	{
-		std::cout << i << ". " << new_racing->transport_name(i) << ". Время: " << new_racing->transport_result(i) << "\n";
-	}
-	std::cout << "****************************\n\n\n";
-	
 	int counter = 1; //номер места
 	for (int i = 0; i < new_racing->get_available_transports_number(); ++i) //перебрать массив транспортов гонки
 	{
