@@ -1,7 +1,5 @@
 #include <iostream>
-#include "racing_exceptions.h"
-
-
+#include "racing_exception.h"
 
 RacingException::RacingException(std::string error_reason_str)
 {

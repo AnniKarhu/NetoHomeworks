@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.22.0)
+project(racing_dynlib)
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+add_library(RacingDynamicLibrary SHARED racing.h racing.cpp racing_exception.h racing_exception.cpp transport.h transport.cpp transport_air.h transport_air.cpp transport_broom.h transport_broom.cpp transport_camel.h transport_camel.cpp Transport_centaur.h Transport_centaur.cpp transport_crosscountry_boots.h transport_crosscountry_boots.cpp transport_eagle.h transport_eagle.cpp transport_exception.h transport_exception.cpp transport_high_speed_camel.h transport_high_speed_camel.cpp transport_land.h transport_land.cpp transport_magic_carpet.h transport_magic_carpet.cpp)
+add_executable(racing_project_exe source.cpp)
+target_link_libraries(racing_project_exe RacingDynamicLibrary)

@@ -234,12 +234,15 @@ int Racing::pivoting(Transport** arr, int size, int pi) //пивотирование
 
 	while (1)
 	{
+		//в этом месте генерируется ошибка - функция выходит за границу массива, где объект класса не существует
 		while (arr[left]->get_distance_time() <  pivot)
 		{
-			if (arr[left]->get_distance_time() <  -1)
-			{ 
-				break;
-			}
+			
+			//этот кусок кода я попыталась добавить, чтобы исключить выход за диапазон, но это тоже плохой вариант - все равно генерируется ошибка.
+			//if (arr[left]->get_distance_time() <  -1)
+			//{ 
+			//	break;
+			//}
 			++left;
 		}
 

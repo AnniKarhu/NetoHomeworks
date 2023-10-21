@@ -1,8 +1,8 @@
 #pragma once
 
 #include "transport.h"
-#include "racing_exceptions.h"
-#include "transport_exceptions.h"
+#include "racing_exception.h"
+#include "transport_exception.h"
 
 enum class race_type //возможные типы гонок
 					{  
