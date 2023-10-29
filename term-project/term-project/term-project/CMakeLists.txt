@@ -10,4 +10,4 @@ file(GLOB source_files "*.h" "*.cpp")
 #add_executable(${PROJECT_NAME} source.cpp) # Создает исполняемый файл
 add_executable(${PROJECT_NAME} ${source_files}) # Создает исполняемый файл
 
-target_link_libraries(${PROJECT_NAME} RacingDynamicLibrary) # Линковка программы с библиотекой 
+target_link_libraries(${PROJECT_NAME} RacingDynamicLibrary) # Линковка программы с библиотекой  
