@@ -20,14 +20,14 @@ Racing::Racing()
 {	
 	try
 	{
-		transports_array[0] = new Transport_crosscountry_boots();
-		transports_array[1] = new Transport_broom();
+		transports_array[0] = new Transport_crosscountry_boots();		
+		transports_array[1] = new Transport_broom();		
 		transports_array[2] = new Transport_camel();
 		transports_array[3] = new Transport_centaur();
 		transports_array[4] = new Transport_eagle();
 		transports_array[5] = new Transport_high_speed_camel();
 		transports_array[6] = new Transport_magic_carpet();	
-		transports_array[7] = new Transport();
+		
 	}
 	catch (const TransportException& ex)
 	{
@@ -225,86 +225,61 @@ registration_status Racing::register_transport(int index) //зарегестрировать тра
 	return registration_status::reg_status_type_error;
 }
 
-
-int Racing::pivoting(Transport** arr, int size, int pi) //пивотирование
-{
-	int left = 0;
-	int right = size - 1;
-	int pivot = arr[pi]->get_distance_time();
-
-	while (1)
-	{
-		//в этом месте генерируется ошибка - функция выходит за границу массива, где объект класса не существует
-		while (arr[left]->get_distance_time() <  pivot)
-		{
-			
-			//этот кусок кода я попыталась добавить, чтобы исключить выход за диапазон, но это тоже плохой вариант - все равно генерируется ошибка.
-			//if (arr[left]->get_distance_time() <  -1)
-			//{ 
-			//	break;
-			//}
-			++left;
-		}
-
-		while (arr[right]->get_distance_time() >  pivot)
-		{
-			--right;
-		}
-
-		if (left >= right)
-		{
-			return left;
-		}
-
-		swap(left, right);
-		++left;
-		--right;
-	}
-}
-	
-
-void Racing::sort_transport_array(Transport** arr, int size) //отсортировать массив по возрастанию времени прохождения гонки
-{
-	if (size == 1)
-	{
-		return;
-	}
-	int pi = size / 2;
-	int border = pivoting(arr, size, pi);
-	sort_transport_array(arr, border);
-
-	int arr_size = size - border;
-	sort_transport_array(&arr[border], arr_size);
-}
-
 void Racing::sort_transport_places() //распределить места
 {
-	sort_transport_array2(transports_array, transports_array_size);
+	sort_transport_array(transports_array, 0, transports_array_size -1);
 }
 
 
 
-void Racing::swap(int i, int j) //поменять местами
+void Racing::swap_transports(int i, int j) //поменять местами
 {
 	Transport* temp = transports_array[i];
 	transports_array[i] = transports_array[j];
 	transports_array[j] = temp;
 }
 
-void Racing::sort_transport_array2(Transport** arr, int size) //отсортировать массив по возрастанию времени прохождения гонки
+
+void Racing::sort_transport_array(Transport** arr, int left, int right) //отсортировать массив по возрастанию времени прохождения гонки
 {
-	bool  changed = true;
-	while (changed)
+	if (left >= right)
 	{
-		changed = false;
-		for (int i = 1; i < size; ++i)
+		return;
+	}
+
+	// переставить элементы
+	int pivot = pivoting(arr, left, right);
+
+	// сортировать подмассив слева от пивота
+	sort_transport_array(arr, left, pivot - 1);
+
+	// сортировать подмассив справа от пивота
+	sort_transport_array(arr, pivot + 1, right);
+}
+
+int Racing::pivoting(Transport** arr, int left, int right) //пивотирование
+{
+	// Пивот -  крайний правый элемент  массива
+	double pivot = arr[right]->get_distance_time();
+
+	// элементы массива меньше пивота перекидываются влево от индекса temp
+	// элементы массива больше пивота перекидываются вправо от индекса temp
+	int temp = left;
+
+	// если элемент массива < = pivot, индекс temp увеличивается, и  элемент меняется местами с пивотом
+	for (int i = left; i < right; i++)
+	{
+		if (arr[i]->get_distance_time() <= pivot)
 		{
-			if (arr[i]->get_distance_time() < arr[i-1]->get_distance_time())
-			{
-				swap(i, i - 1); //поменять местами
-				changed = true;
-			}
+			swap_transports(i, temp);
+			temp++;
 		}
 	}
-	
+
+	// поменять местами  с пивотом
+	swap_transports(temp, right);
+
+	// вернуть номер нового пивота
+	return temp;
 }
+

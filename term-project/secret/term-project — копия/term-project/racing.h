@@ -25,15 +25,12 @@ private:
 	int race_distance = 0;
 	race_type my_race_type; //тип гонки
 	int transports_array_size = 7; //размер массива указателей на транспорты 
-	Transport* transports_array[8] = {}; //массив указателей на транспорты - на 1 больше, чтобы не вылезать за границу массива при сортировке
-	double* result_time_array[7];
-	//int transports_array_index = -1; //указатель на текущий  индекс массива transports_array
-	int minimum_transports_number = 2; //минимальное количество транспортов для гонки
-
+	Transport* transports_array[7] = {}; //массив указателей на транспорты - на 1 больше, чтобы не вылезать за границу массива при сортировке
+	//double* result_time_array[7];
+	int minimum_transports_number = 2; //минимальное количество транспортов для гонки    
 	
-    int pivoting(Transport** arr, int size, int pi); //пивотирование
-	void sort_transport_array(Transport** arr, int size); //отсортировать массив по возрастанию времени прохождения гонки
-	void sort_transport_array2(Transport** arr, int size); //отсортировать массив по возрастанию времени прохождения гонки
+	void sort_transport_array(Transport** arr, int left, int right); //отсортировать массив по возрастанию времени прохождения гонки
+	int pivoting(Transport** arr, int left, int right); //пивотирование
 public: 
 	Racing(race_type new_race_type, int new_distance);
 	Racing();
@@ -53,9 +50,9 @@ public:
 	double transport_result(int arr_index); //результат (время прохождения дистанции) транспорта по индексу в массиве transports_array
 	std::string get_registered_transports_list(); //список имен транспортов, зарегестрированных на гонку
 	registration_status register_transport(int index); //зарегестрировать транспорт на гонку
-	void sort_transport_places(); //распределить места 
+	void sort_transport_places(); //распределить места	
+	void swap_transports(int i, int j); //поменять местами транспорты с индексами i и j
 	
-	void swap(int i, int j); //поменять местами
 };
 
 
